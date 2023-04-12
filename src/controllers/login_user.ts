@@ -18,7 +18,7 @@ export async function LoginUser(req:Request, res: Response){
         return;
      }
     } catch (error) {
-      res.status(401).json({msg: "usúario não encontrado"})
+      res.status(401).json({msg: "usuário não encontrado"})
     }
 
 }
