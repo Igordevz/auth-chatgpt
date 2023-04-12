@@ -6,16 +6,19 @@ export async function LoginUser(req:Request, res: Response){
     const { email, password } = req.body
     
     const userExist:any = await UserModel.findOne({email: email})
-    
-    const passwordAcept =  await bcrypt.compare(password, userExist.password)
 
-    if(passwordAcept){
-      return  res.status(200).json(userExist);
+    try {
+      const passwordAcept = await bcrypt.compare(password, userExist.password)
+      if(!passwordAcept){
+        res.status(401).json({msg: "usuário não encontrado"})
+        return;
+     }
+     if(passwordAcept){
+        res.status(200).json({userExist})
+        return;
+     }
+    } catch (error) {
+      res.status(401).json({msg: "usúario não encontrado"})
     }
-   
-    if(!passwordAcept){
-      return  res.status(401).json({msg: "usuário não encontrado"});
-    }
-
 
 }

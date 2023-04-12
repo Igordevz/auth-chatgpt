@@ -10,5 +10,6 @@ export async function GetUser(req:Request, res: Response){
     if(userExist){
         return res.status(200).json({userExist});
     }
+  
     return res.status(401).json({ msg: 'usuário Não Encontrado' });
 }
