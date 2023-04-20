@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
 import { UserModel } from "../models/user";
 import bcrypt from 'bcrypt'
+
 export async function LoginUser(req:Request, res: Response){
 
     const { email, password } = req.body
-    
     const userExist:any = await UserModel.findOne({email: email})
-
     try {
       const passwordAcept = await bcrypt.compare(password, userExist.password)
       if(!passwordAcept){
